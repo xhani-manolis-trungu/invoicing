@@ -35,7 +35,7 @@ angular
 
       $scope.model.contacts[idx].arxikoPoso = arxikoPoso;
 
-      var sinolikiTimi = (arxikoPoso * $scope.model.contacts[idx].mm);
+      var sinolikiTimi = (arxikoPoso * $scope.model.contacts[idx].mm).toFixed(2);;
 
       $scope.model.contacts[idx].sinolikiTimi = sinolikiTimi;
 
