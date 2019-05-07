@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Invoicing with angularJS</title>  
+  <link rel='stylesheet' href='https://gitcdn.xyz/cdn/angular/bower-material/v1.1.18/angular-material.css'>
+<link rel='stylesheet' href='https://material.angularjs.org/1.1.18/docs.css'>
+      <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+  <div ng-app="ftiaxeTimologio">
+  <div ng-controller="timologioCtrl as ctrl">
+    <div ng-repeat ="item in model.contacts">
+    </div>
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Περιγραφή</th>
+            <th>Τελικό Ποσό</th>
+            <th>ΦΠΑ</th>
+            <th>Μ/Μ</th>
+            <th>Αρχικό Ποσό</th>
+            <th>Συνολική Τιμή</th>
+            <th>Πληρωμή ΦΠΑ</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in model.contacts" ng-include="getTemplate(contact)">
+              
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/ng-template" id="display">
+      <td>
+        <div id="number" layout-gt-xs="row">
+        <div id="itemN" flex-layout="column">
+      {{$index}}
+        </div>
+      </div>
+      </td> 
+      <td>    
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="column">
+              <label>Περιγραφή</label>
+              <input type="text" ng-model="contact.perigrafi" required>
+            </md-input-container>
+          </div>
+        </td>
+        <td>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="column">
+              <label>Τελικό Ποσό</label>
+              <input type="text" ng-model="contact.telikoPoso" required>
+            </md-input-container>
+          </div>
+        </td>
+      <td>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="row" style="margin-bottom: 42px !important">
+              <label>ΦΠΑ</label>
+              <md-select ng-model="contact.sintelestis"> 
+                <md-option id="option" ng-repeat="sintelestis in sintelestesFPA" ng-value="sintelestis">
+                  {{sintelestis | FPApercentage}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+        </td>
+      <td>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="column">
+              <label>Μ/Μ</label>
+              <input type="text" ng-model="contact.mm" required>
+            </md-input-container>
+          </div>
+        </td>
+        <td>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="column">
+              <label>Αρχικό Ποσό</label>
+              <input id="arxikoPoso" type="text" ng-value="apoforologisi(sintelestis, telikoPoso, $index)" required disabled>
+            </md-input-container>
+          </div>
+        </td>
+        <td>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="column">
+              <label>Συνολική Τιμή Μονάδων</label>
+              <input id="sinolikiTimi" type="text" ng-model="contact.sinolikiTimi" required disabled>
+            </md-input-container>
+          </div>
+        </td>
+        <td>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-layout="column">
+              <label>Πληρωμή ΦΠΑ</label>
+              <input id="fpa" type="text" ng-model="contact.pliromiFpa" required disabled>
+            </md-input-container>
+          </div>
+        </td>
+        <td>            
+            <div layout-gt-xs="row">
+              <md-button class="md-raised md-primary" flex-layout="column" ng-click="addRow($index)">Add Row</md-button>
+            <div layout-gt-xs="row">
+              <md-button class="md-raised md-warn" flex-layout="column" ng-click="deleteRow($index)" ng-if="$index >= 0">Delete Row</md-button>
+        </td>
+    </script>
+    <script type="text/ng-template" id="edit">
+        <td><input type="text" ng-model="model.selected.name" /></td>
+        <td><input type="text" ng-model="model.selected.age" /></td>
+        <td><input type="text" ng-model="model.selected.ageAfter" /></td>
+        <td>
+        <td><input type="text" ng-model="model.selected.diff" /></td>
+        <td>
+            <button ng-click="saveContact($index)">Save</button>
+            <button ng-click="reset()">Cancel</button>
+        </td>
+    </script>
+    </div>
+  </div>
+</div>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-messages.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js'></script>
+<script src='https://gitcdn.xyz/cdn/angular/bower-material/v1.1.18/angular-material.js'></script>
+<script  src="js/index.js"></script>
+</body>
+
+</html>
